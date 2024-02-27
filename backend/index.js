@@ -1,10 +1,18 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import express from 'express';
 import cors from 'cors';
+import { fileURLToPath } from "url";
+import path from "path";
+import dotenv from "dotenv";
 import fs from 'fs/promises'; // For asynchronous file writing
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.join(__dirname, "./.env") });
+
 // Replace with your actual API key
-const apiKey = "AIzaSyD_GKleqtcssKudfFIEycaeeZtZoRkXp14";
+const apiKey = process.env.API_KEY ;
 const genAI = new GoogleGenerativeAI(apiKey);
 if (!apiKey) {
   throw new Error("Missing API key. Please set the environment variable API_KEY.");
@@ -67,3 +75,4 @@ app.post('/create-blog', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
