@@ -1,4 +1,5 @@
 import  { useState, useEffect } from 'react';
+import { Heading ,Input ,Button} from '@chakra-ui/react'
 
 const BlogGenerator = () => {
   const [topic, setTopic] = useState('');
@@ -42,19 +43,25 @@ const BlogGenerator = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Blog Generator</h1>
+    <div style={{marginLeft:"30px" ,marginTop:"30px"}}>
+      <Heading>Blog Generator</Heading>
+      <br />
       <form onSubmit={handleSubmit}>
-        <label htmlFor="topic">Topic:</label>
-        <input
+        <label htmlFor="topic">Topic: </label>
+        <Input
+        placeholder='Enter your blog topic'
           type="text"
+          // size='md'
+          width={"50vw"}
           id="topic"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
         />
-        <button type="submit" disabled={isLoading}>
+        <br />
+        <br />
+        <Button colorScheme='teal' size='lg' type="submit" disabled={isLoading}>
           {isLoading ? 'Generating...' : 'Generate Blog'}
-        </button>
+        </Button>
       </form>
       {errorMessage && <p className="error">{errorMessage}</p>}
       {blogContent && <p>{blogContent}</p>}
